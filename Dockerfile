@@ -1,5 +1,5 @@
 # Build the service to a binary
-FROM golang:1.19.5-alpine AS builder
+FROM golang:1.25-alpine AS builder
 
 # Install packages
 RUN apk add --no-cache bash gcc musl-dev linux-headers git
@@ -10,7 +10,7 @@ ADD . .
 RUN go build -o build/main main.go
 
 # Copy and run the made binary
-FROM alpine:3.17
+FROM alpine:3.22
 
 COPY --from=builder /go/src/github.com/guillembonet/public-ip-server/build/main /usr/bin/public-ip-server
 
